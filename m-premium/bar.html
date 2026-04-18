@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>БАР — Барная карта</title>
+<link rel="stylesheet" href="style2.css">
+</head>
+<body>
+
+<a class="logo-fixed" href="../index.html">
+  <img src="https://static.tildacdn.com/tild3233-3136-4334-b830-346330613430/1000009714.png" alt="Логотип">
+</a>
+
+<button class="wishlist-btn" id="wishlistBtn">
+  <svg viewBox="0 0 41 35" xmlns="http://www.w3.org/2000/svg">
+    <path d="M39.9516 11.9535C39.9516 22.5416 20.4993 33.8088 20.4993 33.8088C20.4993 33.8088 1.04688 22.5416 1.04688 11.9535C1.04688 -2.42254 20.4993 -2.2284 20.4993 10.4239C20.4993 -2.2284 39.9516 -2.03914 39.9516 11.9535Z"/>
+  </svg>
+</button>
+
+<div class="page-header">
+  <h1 class="page-title">Барная карта</h1>
+</div>
+
+<nav class="nav-desktop">
+  <ul>
+    <li><a href="hookah-menu.html">Кальянное меню</a></li>
+    <li><a href="kitchen-menu.html">Меню кухни</a></li>
+    <li><a href="bar.html" class="active">Барная карта</a></li>
+    <li><a href="business-lunch.html">Бизнес-ланч</a></li>
+  </ul>
+</nav>
+
+<nav class="nav-mobile">
+  <a href="hookah-menu.html">
+    <span class="btn-text">Кальянное меню</span>
+    <svg viewBox="0 0 10 18"><path d="M1 1L8.27 9L1 17" stroke-linecap="round"/></svg>
+  </a>
+  <a href="kitchen-menu.html">
+    <span class="btn-text">Меню кухни</span>
+    <svg viewBox="0 0 10 18"><path d="M1 1L8.27 9L1 17" stroke-linecap="round"/></svg>
+  </a>
+  <a href="bar.html" class="active">
+    <span class="btn-text">Барная карта</span>
+    <svg viewBox="0 0 10 18"><path d="M1 1L8.27 9L1 17" stroke-linecap="round"/></svg>
+  </a>
+  <a href="business-lunch.html">
+    <span class="btn-text">
+      Бизнес-ланч
+      <div class="btn-descr">Понедельник–Пятница до 16:00</div>
+    </span>
+    <svg viewBox="0 0 10 18"><path d="M1 1L8.27 9L1 17" stroke-linecap="round"/></svg>
+  </a>
+</nav>
+
+<div class="divider"><div class="divider-inner"></div></div>
+<div class="spacer"></div>
+
+<!-- DESKTOP TABS -->
+<div class="tabs-wrap">
+  <ul class="tabs-list" id="tabsList"></ul>
+</div>
+
+<!-- MOBILE SELECT -->
+<div class="tabs-select-wrap">
+  <select class="tabs-select" id="tabsSelect" onchange="switchTab(this.value)"></select>
+</div>
+
+<div id="tabContent"></div>
+
+<div style="height:80px;"></div>
+
+<button class="scroll-top" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <svg viewBox="0 0 50 50"><path d="M14 28L25 18l11 10"/></svg>
+</button>
+
+<script>
+const tabs = [
+  { id: 'cocktails', label: 'Коктейли', watermark: 'Coctails', sections: [
+    { title: 'Безалкогольные коктейли', items: [
+      {name:'Whiskey Sour', price:'16'}, {name:'Negroni', price:'18'}, {name:'Gin Tonic', price:'16'},
+      {name:'Aperol', price:'18'}, {name:'Clover Club', price:'16'},
+    ]},
+    { title: 'Spritz', items: [
+      {name:'Campari Spritz', price:'22'}, {name:'Aperol Spritz', price:'22'}, {name:'Cynar Spritz', price:'22'},
+      {name:'Sarti Spritz', price:'22'}, {name:'Ligare Spritz', price:'22'}, {name:'Fiero Spritz', price:'22'},
+    ]},
+    { title: 'Классические коктейли', items: [
+      {name:'Long Island', price:'27'}, {name:'New York Sour', price:'18'}, {name:'Espresso Martini', price:'18'},
+      {name:'Negroni', price:'18'}, {name:'Bellini', price:'22'}, {name:'Aperol Spritz', price:'22'},
+      {name:'God Father', price:'22'}, {name:'Porn Star', price:'22'}, {name:'Daiquiri', price:'18'},
+      {name:'White Russian', price:'18'}, {name:'Margarita', price:'18'}, {name:'Cosmopolitan', price:'18'},
+      {name:'Old Fashioned', price:'18'}, {name:'Whiskey Sour', price:'18'},
+    ]},
+    { title: 'Авторские коктейли', items: [
+      {name:'Россия', price:'18', descr:'водка, малиновый кордиал, содовая, ягоды'},
+      {name:'Китай', price:'18', descr:'джин, кордиал сенча-юдзу'},
+      {name:'Япония', price:'18', descr:'персиковый джин, яблочный кордиал, минту'},
+      {name:'США', price:'22', descr:'виски jim beam, амаретто, кордиал попкорн, содовая'},
+      {name:'Италия', price:'18', descr:'джин, фиеро, малиновый кордиал'},
+      {name:'Куба', price:'18', descr:'морган спайси, водка, кордиал манго-маракуйя, табачный биттер'},
+      {name:'Мексика', price:'22', descr:'текила, водка, чинар, гречишный кордиал'},
+      {name:'Индия', price:'18', descr:'пряный джин, жасминовый кордиал, сироп маракуйя, игристое'},
+      {name:'Испания', price:'18', descr:'сангрия, ягоды, апельсин, лайм, сахарный сироп, малиновый сироп'},
+    ]},
+  ]},
+  { id: 'shots', label: 'Шоты', watermark: 'Shot drinks', sections: [
+    { title: 'Сеты шотов', items: [
+      {name:'Кислое яблоко', price:'30', descr:'6 штук х 50 мл'},
+      {name:'Вишня', price:'30', descr:'6 штук х 50 мл'},
+      {name:'Тропические', price:'30', descr:'6 штук х 50 мл'},
+      {name:'Ананас-кокос', price:'30', descr:'6 штук х 50 мл'},
+    ]},
+  ]},
+  { id: 'coffee', label: 'Кофе', watermark: 'Coffee', sections: [
+    { title: 'Кофе', items: [
+      {name:'Эспрессо', price:'4,5'}, {name:'Американо', price:'5'}, {name:'Капучино', price:'5'},
+      {name:'Латте', price:'6'}, {name:'Флэт-уайт', price:'6'}, {name:'Раф', price:'7'},
+      {name:'Эспрессо-тоник', price:'8'}, {name:'Бамбл', price:'8'},
+    ]},
+  ]},
+  { id: 'tea', label: 'Чай', watermark: 'Tea', sections: [
+    { title: 'Чайная дегустация', items: [
+      {name:'Ассам', price:'12'}, {name:'Молочный улун', price:'12'}, {name:'Гречишный', price:'12'},
+      {name:'Фруктовый "Дивный сад"', price:'12'}, {name:'Спокойной ночи', price:'12'},
+      {name:'Гречишный с кокосом', price:'17'}, {name:'Гречишный "Липовый мёд"', price:'17'},
+      {name:'Чёрный чай с чабрецом и мятой', price:'17'}, {name:'Моли Хуа Ча', price:'17'},
+      {name:'Земляничная поляна', price:'17'}, {name:'Таёжный сбор', price:'17'},
+      {name:'Ройбуш "Ванильная карамель"', price:'17'}, {name:'Лу Цзин', price:'17'},
+      {name:'Хун Мао Фэн', price:'19'}, {name:'Би Ло Чунь', price:'17'},
+      {name:'Фруктовый "Тропическое небо"', price:'17'}, {name:'Фруктовый "Киви-груша"', price:'17'},
+      {name:'Каркадэ', price:'17'}, {name:'Лапсанг Сушонг', price:'17'},
+      {name:'Швейцарский сбор', price:'17'}, {name:'Шоколад с вишней', price:'19'},
+      {name:'Шоу Мэй', price:'19'}, {name:'Те Гуань Инь', price:'19'},
+      {name:'Да Хун Пао', price:'19'}, {name:'Цзин Цзюн Мэй', price:'19'},
+      {name:'Габа', price:'19'}, {name:'Шу Пуэр', price:'19'}, {name:'Шен Пуэр', price:'19'},
+    ]},
+    { title: 'Авторские напитки', items: [
+      {name:'Клубника-яблоко', price:'23'}, {name:'Персик-инжир чай', price:'23'},
+      {name:'Тропический чай', price:'23'}, {name:'Ягодный чай', price:'23'},
+      {name:'Клюквенный чай', price:'23'}, {name:'Вишнёвый', price:'23', descr:'вишня, ассам, мёд, корица, бадьян, гвоздика'},
+      {name:'Малина', price:'23', descr:'малина, ассам, мёд, корица, бадьян, гвоздика'},
+      {name:'Малина-лайм', price:'23', descr:'ассам, малина, лайм, мёд, сироп малина'},
+      {name:'Имбирный', price:'23', descr:'молочный улун, имбирь, апельсин, лимон, мёд, корица, бадьян, гвоздика'},
+      {name:'Облепиховый', price:'23', descr:'молочный улун, облепиха, апельсин, мёд, корица, бадьян, гвоздика'},
+    ]},
+  ]},
+  { id: 'drinks', label: 'Напитки', watermark: 'Drinks', sections: [
+    { title: 'Софт', items: [
+      {name:'Сок Rich', price:'4', descr:'200 мл'}, {name:'Coca Cola Zero', price:'5', descr:'330 мл'},
+      {name:'Coca Cola Classic', price:'5', descr:'330 мл'}, {name:'Молочный коктейль', price:'13'},
+      {name:'Fanta', price:'5', descr:'330 мл'}, {name:'Sprite', price:'5', descr:'330 мл'},
+      {name:'Schweppes', price:'5', descr:'330 мл'}, {name:'Вода Dausuz', price:'4', descr:'негаз, 275 мл'},
+      {name:'Вода Jermuk', price:'6', descr:'газ/негаз, 0,5 л'}, {name:'Burn', price:'9', descr:'250 мл'},
+    ]},
+    { title: 'Лимонады', items: [
+      {name:'Клубника-кокос', price:'11 / 22', descr:'280 мл | 1 л'},
+      {name:'Классический', price:'11 / 22', descr:'280 мл | 1 л'},
+      {name:'Огуречный', price:'11 / 22', descr:'280 мл | 1 л'},
+      {name:'Ягодный', price:'11 / 22', descr:'280 мл | 1 л'},
+    ]},
+  ]},
+  { id: 'beer', label: 'Пиво', watermark: 'Beer', sections: [
+    { title: 'Пиво', items: [
+      {name:'Яблочный сидр', price:'10', descr:'0,4 л'},
+      {name:'Budweiser Budvar', price:'14', descr:'0,5 л'},
+      {name:'Budweiser (тёмное)', price:'14', descr:'0,5 л'},
+      {name:'Blanс (безалкогольное)', price:'10'},
+      {name:'Kronenbourg 1664 Blanс', price:'11'},
+      {name:'Corona Extra', price:'13'},
+    ]},
+  ]},
+  { id: 'wine', label: 'Шампанское и вино', watermark: 'Champagne & Wine', sections: [
+    { title: 'Moet & Chandon', items: [
+      {name:'Moet & Chandon BRUT Imperial', price:'400', descr:'0,75 л — Шампанское с насыщенным фруктовым вкусом, нотами персиков, яблок и цитрусов. NEW'},
+    ]},
+    { title: 'Безалкогольное шампанское и вино', items: [
+      {name:'Codorniu Zero', price:'15', descr:'п/сл. Испания 125 мл'},
+      {name:'Pierre Zero Chardonnay/Merlot/Rose', price:'15', descr:'п/сл. Франция 125 мл'},
+    ]},
+    { title: 'Красное вино', items: [
+      {name:'Sandstone Shiraz', price:'18', descr:'П/сух., Португалия, 150 мл'},
+      {name:'Wanderer Zinfandel', price:'18', descr:'Сух., США, 150 мл'},
+      {name:'Sauv\'terre merlot', price:'18', descr:'Сух., Франция, 150 мл'},
+      {name:'Salina Bobal', price:'15', descr:'150 мл'},
+      {name:'Chianti Governo Tascana', price:'18', descr:'150 мл'},
+      {name:'Appasimento Puglia', price:'15', descr:'сух. Италия 150 мл'},
+    ]},
+    { title: 'Белое вино', items: [
+      {name:'J. Meyer Gewurztraminer', price:'18', descr:'П/сух., Германия, 150 мл'},
+      {name:'Most Wanted', price:'18', descr:'П/сух., ЮАР, 150 мл'},
+      {name:'Chilano Chardonnay', price:'18', descr:'Сух., Чили, 150 мл'},
+      {name:'Chateau De Maligny', price:'23', descr:'150 мл'},
+    ]},
+    { title: 'Розовое вино', items: [
+      {name:'Balance rose classic', price:'18', descr:'П/сух., ЮАР, 150 мл'},
+      {name:'Vihna da Valentina', price:'18', descr:'Сух., Португалия, 150 мл'},
+      {name:'Feral Roots White Zinfandel', price:'18', descr:'150 мл'},
+    ]},
+    { title: 'Игристое', items: [
+      {name:'Bea Vita Prosecco brut DOC', price:'15', descr:'150 мл'},
+      {name:'Prosecco', price:'15', descr:'сух. Италия 150 мл'},
+      {name:'Codorniu Zero (free alcohol)', price:'15', descr:'сух. Испания 150 мл'},
+    ]},
+  ]},
+  { id: 'strong', label: 'Крепкое', watermark: 'Strong', sections: [
+    { title: 'Виски', items: [
+      {name:'Macallan 12 y.o', price:'28 / 405', descr:'40 мл / 0,7 л'},
+      {name:'Jameson IPA', price:'16 / 216', descr:'40 мл / 0,7 л'},
+      {name:'Talisker 10 Y.O.', price:'25 / 360', descr:'40 мл / 0,7 л'},
+      {name:'Ballantine\'s', price:'13 / 260', descr:'40 мл / 1 л'},
+      {name:'Four Rouses', price:'12 / 200', descr:'40 мл / 1 л'},
+      {name:'Chivas Regal 18 y.o', price:'27 / 390', descr:'40 мл / 0,7 л'},
+      {name:'Makers Mark', price:'19 / 380', descr:'40 мл / 1 л'},
+      {name:'Jameson 3 y.o.', price:'14 / 260', descr:'40 мл / 1 л'},
+      {name:'Jim Beam', price:'12 / 180', descr:'40 мл / 1 л'},
+      {name:'Tullamore D.E.W.', price:'13', descr:'40 мл'},
+      {name:'Tullamore D.E.W. X.O.', price:'13', descr:'40 мл'},
+      {name:'Chivas Regal 15 y.o.', price:'22 / 320', descr:'40 мл / 0,7 л'},
+      {name:'Chivas Regal 12 y.o.', price:'17 / 340', descr:'40 мл / 1 л'},
+      {name:'Jack Daniel\'s', price:'14 / 280', descr:'40 мл / 1 л'},
+      {name:'Monkey Shoulder', price:'19 / 275', descr:'40 мл / 0,7 л'},
+      {name:'Admiral Husso', price:'11', descr:'40 мл'},
+      {name:'Teeling', price:'15 / 215', descr:'40 мл / 0,7 л'},
+    ]},
+    { title: 'Портвейн', items: [
+      {name:'Graham\'s Towny Port 10 Y.O.', price:'17', descr:'50 мл'},
+      {name:'Quevedo Ruby Port', price:'12', descr:'50 мл'},
+      {name:'Graham\'s Ruby Port', price:'12', descr:'50 мл'},
+    ]},
+    { title: 'Ром', items: [
+      {name:'Dictador 12 y.o', price:'19 / 275', descr:'40 мл / 0,7 л'},
+      {name:'Bumbu XO', price:'19 / 275', descr:'40 мл / 0,7 л'},
+      {name:'Bacardi Carta Negra', price:'13 / 240', descr:'40 мл / 1 л'},
+      {name:'Bacardi Spiced', price:'13 / 175', descr:'40 мл / 0,7 л'},
+      {name:'Bacardi Carta Blanca', price:'13 / 240', descr:'40 мл / 1 л'},
+      {name:'Bumbu The Original', price:'17', descr:'40 мл'},
+      {name:'Captain Morgan Spiced Gold', price:'11 / 180', descr:'40 мл / 1 л'},
+    ]},
+    { title: 'Текила', items: [
+      {name:'Rooster Rojo Reposado', price:'15 / 215', descr:'40 мл / 0,7 л'},
+      {name:'Olmeca Silver', price:'13 / 188', descr:'40 мл / 0,7 л'},
+    ]},
+    { title: 'Джин', items: [
+      {name:'Hendrick\'s', price:'18 / 260', descr:'40 мл / 0,7 л'},
+      {name:'Bombay Sapphire', price:'14 / 280', descr:'40 мл / 1 л'},
+      {name:'Gordon\'s London Dry', price:'9', descr:'40 мл'},
+      {name:'Gordon\'s Passion Fruit', price:'10', descr:'40 мл'},
+    ]},
+    { title: 'Коньяк/Бренди', items: [
+      {name:'Courvoiser V.S.', price:'19 / 275', descr:'40 мл / 0,7 л'},
+    ]},
+    { title: 'Sambuca', items: [
+      {name:'Sambuca', price:'10', descr:'40 мл'},
+    ]},
+    { title: 'Ликёры', items: [
+      {name:'Jeam Beam Honey', price:'11 / 160', descr:'40 мл / 0,7 л'},
+      {name:'Jeam Beam Apple', price:'11 / 160', descr:'40 мл / 0,7 л'},
+      {name:'Jeam Beam Peach', price:'11 / 160', descr:'40 мл / 0,7 л'},
+      {name:'Jeam Beam Cherry', price:'11 / 160', descr:'40 мл / 0,7 л'},
+      {name:'Fireball', price:'10 / 200', descr:'40 мл / 1 л'},
+      {name:'Southern Comfort Original', price:'10 / 145', descr:'40 мл / 0,7 л'},
+      {name:'Becherovka', price:'11 / 220', descr:'40 мл / 0,7 л'},
+      {name:'Cynar', price:'12', descr:'40 мл'},
+      {name:'Jagermeister', price:'11 / 220', descr:'40 мл / 1 л'},
+      {name:'Jagermeister Orange', price:'14 / 280', descr:'40 мл / 1 л'},
+    ]},
+    { title: 'Водка', items: [
+      {name:'Finlandia', price:'9 / 180', descr:'40 мл / 1 л'},
+      {name:'Danzka', price:'8 / 140', descr:'40 мл / 1 л — Вкусы: apple, citrus, cranraz'},
+    ]},
+    { title: 'Абсент', items: [
+      {name:'Xenta Absenta', price:'14 / 200', descr:'40 мл / 0,7 л'},
+    ]},
+    { title: 'Вермуты', items: [
+      {name:'Martini Extra Dry', price:'12', descr:'50 мл'},
+      {name:'Martini Fiero', price:'12', descr:'50 мл'},
+      {name:'Martini Rosso', price:'12', descr:'50 мл'},
+    ]},
+  ]},
+];
+
+let currentTab = 'cocktails';
+
+function buildTabs() {
+  const list = document.getElementById('tabsList');
+  const sel = document.getElementById('tabsSelect');
+  tabs.forEach(t => {
+    const li = document.createElement('li');
+    li.className = 'tab-item' + (t.id===currentTab?' active':'');
+    li.innerHTML = `<button class="tab-btn" onclick="switchTab('${t.id}')">${t.label}</button>`;
+    list.appendChild(li);
+    const opt = document.createElement('option');
+    opt.value = t.id;
+    opt.textContent = t.label;
+    sel.appendChild(opt);
+  });
+}
+
+function switchTab(id) {
+  currentTab = id;
+  document.querySelectorAll('.tab-item').forEach(el => {
+    el.classList.toggle('active', el.querySelector('button').onclick.toString().includes(`'${id}'`));
+  });
+  document.getElementById('tabsSelect').value = id;
+  renderTab(id);
+}
+
+function renderTab(id) {
+  const tab = tabs.find(t=>t.id===id);
+  let html = `
+    <div class="section-watermark"><div class="section-watermark-text">${tab.watermark}</div></div>
+  `;
+  tab.sections.forEach(sec => {
+    html += `<div class="section-title"><h2>${sec.title}</h2></div>`;
+    html += `<div class="pricelist-wrap"><div class="pricelist-cols">`;
+    const half = Math.ceil(sec.items.length / 2);
+    const col1 = sec.items.slice(0, half);
+    const col2 = sec.items.slice(half);
+    html += `<div>` + col1.map(renderItem).join('') + `</div>`;
+    html += `<div>` + col2.map(renderItem).join('') + `</div>`;
+    html += `</div></div>`;
+  });
+  document.getElementById('tabContent').innerHTML = html;
+}
+
+function renderItem(item) {
+  return `
+    <div class="pricelist-item">
+      <div class="pricelist-row">
+        <div class="pricelist-name">${item.name}</div>
+        <div class="pricelist-price">${item.price}</div>
+      </div>
+      <div class="pricelist-line"></div>
+      ${item.descr ? `<div class="pricelist-descr">${item.descr}</div>` : ''}
+    </div>
+  `;
+}
+
+window.addEventListener('scroll', () => {
+  document.getElementById('scrollTopBtn').classList.toggle('visible', window.scrollY > 300);
+});
+
+buildTabs();
+renderTab(currentTab);
+</script>
+</body>
+</html>

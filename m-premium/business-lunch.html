@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>БИЗНЕС-ЛАНЧ</title>
+<link rel="stylesheet" href="style2.css">
+</head>
+<body>
+
+<a class="logo-fixed" href="../index.html">
+  <img src="https://static.tildacdn.com/tild3233-3136-4334-b830-346330613430/1000009714.png" alt="Логотип">
+</a>
+
+<div class="page-header">
+  <h1 class="page-title">Бизнес-ланч</h1>
+</div>
+
+<nav class="nav-desktop">
+  <ul>
+    <li><a href="hookah-menu.html">Кальянное меню</a></li>
+    <li><a href="kitchen-menu.html">Меню кухни</a></li>
+    <li><a href="bar.html">Барная карта</a></li>
+    <li><a href="business-lunch.html" class="active">Бизнес-ланч</a></li>
+  </ul>
+</nav>
+
+<nav class="nav-mobile">
+  <a href="hookah-menu.html">
+    <span class="btn-text">Кальянное меню</span>
+    <svg viewBox="0 0 10 18"><path d="M1 1L8.27 9L1 17" stroke-linecap="round"/></svg>
+  </a>
+  <a href="kitchen-menu.html">
+    <span class="btn-text">Меню кухни</span>
+    <svg viewBox="0 0 10 18"><path d="M1 1L8.27 9L1 17" stroke-linecap="round"/></svg>
+  </a>
+  <a href="bar.html">
+    <span class="btn-text">Барная карта</span>
+    <svg viewBox="0 0 10 18"><path d="M1 1L8.27 9L1 17" stroke-linecap="round"/></svg>
+  </a>
+  <a href="business-lunch.html" class="active">
+    <span class="btn-text">
+      Бизнес-ланч
+      <div class="btn-descr">Понедельник–Пятница до 16:00</div>
+    </span>
+    <svg viewBox="0 0 10 18"><path d="M1 1L8.27 9L1 17" stroke-linecap="round"/></svg>
+  </a>
+</nav>
+
+<div class="bl-images">
+  <img src="https://static.tildacdn.com/tild3134-6535-4063-b831-336130323565/1.png" alt="Бизнес-ланч меню 1">
+  <img src="https://static.tildacdn.com/tild3535-3039-4566-a239-323261313339/2.png" alt="Бизнес-ланч меню 2">
+</div>
+
+<button class="scroll-top" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <svg viewBox="0 0 50 50"><path d="M14 28L25 18l11 10"/></svg>
+</button>
+
+<script>
+window.addEventListener('scroll', () => {
+  document.getElementById('scrollTopBtn').classList.toggle('visible', window.scrollY > 300);
+});
+</script>
+</body>
+</html>
